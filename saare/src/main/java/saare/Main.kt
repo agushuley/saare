@@ -1,3 +1,5 @@
+package saare
+
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,13 +18,8 @@ public class Main {
         return "Hello World!";
     }
 
-    companion object {
-        public fun main(args: Array<String>) {
-            SpringApplication.run(arrayOf(javaClass<Main>()), args);
-        }
-    }
 }
 
 public fun main(args: Array<String>) {
-    Main.main(args)
+    SpringApplication.run(arrayOf(javaClass<Main>()), args);
 }
