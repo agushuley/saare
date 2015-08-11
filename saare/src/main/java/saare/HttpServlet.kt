@@ -20,11 +20,12 @@ public class HttpServlet : GenericServlet() {
 	override
 	public fun service( req: ServletRequest, resp: ServletResponse ) {
 		val req = req as HttpServletRequest
-		val resp = resp as HttpServletResponse
+		val httpResp = resp as HttpServletResponse
 
 		var adapter = object : SaareWorkflowAdapter {
 			override fun handleResponseWithFilters(resp: Response, filters: List<Filter>) {
-				throw UnsupportedOperationException()
+				httpResp.setContentType(resp.contentType)
+				httpResp.getWriter().write(resp.body)
 			}
 
 			override fun createRequest(): Request {
