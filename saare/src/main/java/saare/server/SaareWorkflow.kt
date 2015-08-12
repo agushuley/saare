@@ -1,11 +1,11 @@
 package saare.server
 
 import saare.*
-import saare.server.HelloView
 import saare.server.find_view
 import saare.views.View
+import saare.views.ViewsResolverConfiguration
 
-class SaareWorkflow {
+class SaareWorkflow(val configuration: Any) {
 
 	public fun handle(adapter: SaareWorkflowAdapter) {
 		var request = adapter.createRequest()
@@ -23,7 +23,7 @@ class SaareWorkflow {
 				return
 			}
 		}
-		val viewParams = find_view(request.method, request.url, request.hostName)
+		val viewParams = find_view(request.method, request.url, request.hostName, ViewsResolverConfiguration.from(configuration).views)
 		val view = viewParams.first
 		val params = viewParams.second
 		val resp = view.handle(request, params)

@@ -10,6 +10,8 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import saare.SaareMain
+import saare_test.settings.Base
 import javax.servlet.GenericServlet
 import javax.servlet.Servlet
 import javax.servlet.ServletRequest
@@ -21,11 +23,11 @@ import kotlin.platform.platformStatic
  * Created by andriy on 14/07/15.
  */
 
-public open class Main {
+public open class Main : SaareMain(Base) {
 	companion object {
 		@platformStatic
 		public fun main(args: Array<String>) {
-			saare.Main.main(args);
+			saare.SaareMain.main(args, javaClass<Main>() as Class<SaareMain>);
 		}
 	}
 }

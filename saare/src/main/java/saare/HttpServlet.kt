@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse
  * Date: 10/08/2015
  * Time: 14:02
  */
-public class HttpServlet : GenericServlet() {
-	private val workflow = SaareWorkflow()
+public class HttpServlet(val configuration: Any) : GenericServlet() {
+	private val workflow = SaareWorkflow(configuration)
 
 	override
 	public fun service( req: ServletRequest, resp: ServletResponse ) {

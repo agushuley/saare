@@ -25,22 +25,22 @@ import kotlin.platform.platformStatic
 
 @EnableAutoConfiguration
 @Configuration
-public open class Main : SpringBootServletInitializer() {
+public open class SaareMain(public val saareConfiguration: Any) : SpringBootServletInitializer() {
 	@Bean
 	open public fun dispatcherServlet(): Servlet {
 		return servlet;
 	}
 
 	override protected fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
-		return application.sources(javaClass<Main>());
+		return application.sources(javaClass<SaareMain>());
 	}
 
-	val servlet = HttpServlet()
+	val servlet = HttpServlet(saareConfiguration)
 
 	companion object {
 		@platformStatic
-		public fun main(args: Array<String>) {
-			SpringApplication.run(arrayOf(javaClass<Main>()), args);
+		public fun main(args: Array<String>, mainClass: Class<SaareMain>) {
+			SpringApplication.run(arrayOf(mainClass), args);
 		}
 	}
 }
