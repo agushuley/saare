@@ -1,8 +1,8 @@
 package saare.views
 
 import saare.server.HttpMethod
-import saare.server.Request
-import saare.server.Response
+import saare.http.Request
+import saare.http.Response
 
 interface View {
 	val uri: String

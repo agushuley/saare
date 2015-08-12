@@ -1,7 +1,8 @@
 package saare.server
 
-import saare.server.Request
-import saare.server.Response
+import saare.http.Http404
+import saare.http.Request
+import saare.http.Response
 import saare.views.View
 import javax.swing.text
 

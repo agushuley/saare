@@ -1,5 +1,9 @@
 package saare;
 
+import saare.http.BinaryResponse
+import saare.http.Request
+import saare.http.Response
+import saare.http.TextResponse
 import saare.server.*
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
@@ -24,8 +28,32 @@ public class HttpServlet(val configuration: Any) : GenericServlet() {
 
 		var adapter = object : SaareWorkflowAdapter {
 			override fun handleResponseWithFilters(resp: Response, filters: List<Filter>) {
-				httpResp.setContentType(resp.contentType)
-				httpResp.getWriter().write(resp.body)
+				httpResp.setStatus(resp.returnCode)
+				httpResp.setContentType("resp.contentType")
+				when (resp) {
+					is TextResponse -> {
+						httpResp.setCharacterEncoding(resp.contentEncoding)
+						var writer = httpResp.getWriter()
+						when {
+							resp.body != null ->
+								writer.write(resp.body)
+							resp.stream != null ->
+								for (s in resp.stream!!.iterator()) {
+									writer.write(s)
+								}
+						}
+					}
+					is BinaryResponse -> {
+						when {
+							resp.body != null ->
+								httpResp.getOutputStream().write(resp.body)
+							resp.stream != null ->
+								for (s in resp.stream!!.iterator()) {
+									httpResp.getOutputStream().write(s)
+								}
+						}
+					}
+				}
 			}
 
 			override fun createRequest(): Request {
@@ -36,3 +64,4 @@ public class HttpServlet(val configuration: Any) : GenericServlet() {
 		this.workflow.handle(adapter)
 	}
 }
+
