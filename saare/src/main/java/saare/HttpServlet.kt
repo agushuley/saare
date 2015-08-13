@@ -29,7 +29,7 @@ public class HttpServlet(val configuration: Any) : GenericServlet() {
 		var adapter = object : SaareWorkflowAdapter {
 			override fun handleResponseWithFilters(resp: Response, filters: List<Filter>) {
 				httpResp.setStatus(resp.returnCode)
-				httpResp.setContentType("resp.contentType")
+				httpResp.setContentType(resp.contentType)
 				when (resp) {
 					is TextResponse -> {
 						httpResp.setCharacterEncoding(resp.contentEncoding)

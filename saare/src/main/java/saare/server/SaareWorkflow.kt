@@ -8,6 +8,8 @@ import saare.http.TextResponse
 import saare.server.find_view
 import saare.views.View
 import saare.views.ViewsResolverConfiguration
+import java.io.PrintWriter
+import java.io.StringWriter
 
 class SaareWorkflow(val configuration: Any) {
 
@@ -50,9 +52,19 @@ class SaareWorkflow(val configuration: Any) {
 	}
 
 	private fun httpErrorToResponse(e: HttpError): Response {
+		if ((e.returnCode >= 500) and (e.returnCode < 600)) {
 
-		return TextResponse(returnCode = e.returnCode)
-		throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+			var textWriter = StringWriter()
+			if ( e.getMessage() != null ) {
+				textWriter.append("<h3>${e.getMessage() ?: ""}</h3>")
+			}
+			textWriter.append("<pre>")
+			e.printStackTrace( PrintWriter( textWriter ) )
+			textWriter.append("</pre>")
+			return TextResponse(returnCode = e.returnCode, body = textWriter.toString(), contentType = "text/html")
+		} else {
+			return TextResponse(returnCode = e.returnCode, body = "<h3>${e.getMessage() ?: ""}</h3>", contentType = "text/html")
+		}
 	}
 
 
