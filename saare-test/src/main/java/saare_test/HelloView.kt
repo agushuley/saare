@@ -9,6 +9,6 @@ class HelloView(
 		override val uri: String
 ): View {
 	override fun handle(request: Request, params: Map<String, String>) : Response {
-		return TextResponse(body = "Hello from saare, url = ${request.url}", contentType = "text/html")
+		return TextResponse(body = "Hello from saare, request = ${request}", contentType = "text/html")
 	}
 }

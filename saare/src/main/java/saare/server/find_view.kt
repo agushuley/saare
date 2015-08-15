@@ -11,7 +11,6 @@ fun find_view(method: String, uri: String, hostName: String, views: List<View>):
 		if (view.supportedMethods.contains(method) && uri == view.uri) {
 			return Pair(view, emptyMap())
 		}
-
 	}
 	throw Http404("Can't find view $method:$uri in $views")
 }

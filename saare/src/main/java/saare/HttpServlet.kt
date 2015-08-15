@@ -1,9 +1,6 @@
 package saare;
 
-import saare.http.BinaryResponse
-import saare.http.Request
-import saare.http.Response
-import saare.http.TextResponse
+import saare.http.*
 import saare.server.*
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
@@ -57,7 +54,15 @@ public class HttpServlet(val configuration: Any) : GenericServlet() {
 			}
 
 			override fun createRequest(): Request {
-				return Request(req.getMethod() ?: "", req.getRequestURI() ?: "", req.getHeader("HttpHost") ?: "")
+				var headers = emptyMap<HttpHeader, String>()
+				if (req.getHeaderNames() != null) {
+					for (header in req.getHeaderNames()) {
+						val header = HttpHeader.header(header)
+						headers += header to req.getHeader(header.str)
+					}
+				}
+				val hostName = headers.getOrElse(HttpHeader.HOST) { "" }
+				return Request(method = req.getMethod() ?: "", url = req.getRequestURI() ?: "", hostName = hostName, headers = headers)
 			}
 		}
 

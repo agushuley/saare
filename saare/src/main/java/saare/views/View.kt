@@ -1,6 +1,5 @@
 package saare.views
 
-import saare.server.HttpMethod
 import saare.http.Request
 import saare.http.Response
 
