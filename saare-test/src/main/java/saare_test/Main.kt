@@ -27,7 +27,7 @@ public open class Main : SaareMain(Base) {
 	companion object {
 		@platformStatic
 		public fun main(args: Array<String>) {
-			saare.SaareMain.main(args, javaClass<Main>() as Class<SaareMain>);
+			saare.SaareMain.main(args, javaClass<SaareMain>());
 		}
 	}
 }
