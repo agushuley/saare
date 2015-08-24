@@ -31,7 +31,7 @@ class SaareWorkflow(val configuration: Any) {
 					return
 				}
 			}
-			val viewParams = find_view(request.method, request.url, request.hostName, ViewsResolverConfiguration.from(configuration).views)
+			val viewParams = find_view(request.method, request.url, request.hostName, ViewsResolverConfiguration(configuration).views)
 			val view = viewParams.first
 			val params = viewParams.second
 			resp = view.handle(request, params)

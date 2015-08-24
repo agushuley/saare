@@ -3,23 +3,24 @@ package saare
 import org.junit.Test
 import org.junit.Assert.*
 
-val ii = object : DefaultConfigTest.i {}
 public class DefaultConfigTest {
-	interface i {
-		companion object : DefaultConfig<i>( defaultValue = ii, type = javaClass<i>() ) {
-
-				}
+	interface TestConfigType {
+		companion object : DefaultConfig<TestConfigType>(
+				defaultValue = object : DefaultConfigTest.TestConfigType {},
+				type = javaClass<TestConfigType>()
+		) {
+		}
 	}
 
 	@Test
 	public fun testGetDefault () {
-		val default = i.from(1)
-		assertSame(default, ii)
+		val config1 = TestConfigType(1)
+		assertSame(config1, TestConfigType.DEFAULT)
 
-		val ii2 = object : DefaultConfigTest.i {}
+		val instance2 = object : DefaultConfigTest.TestConfigType {}
 
-		val default2 = i.from(ii2)
-		assertSame(default2, ii2)
-		assertNotSame(default2, ii)
+		val config2 = TestConfigType(instance2)
+		assertSame(config2, instance2)
+		assertNotSame(config2, TestConfigType.DEFAULT)
 	}
 }
