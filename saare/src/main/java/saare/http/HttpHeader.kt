@@ -9,7 +9,7 @@ import saare.CIString
 public class HttpHeader private constructor(name: String): CIString(name) {
 	companion object {
 		private var interns = emptyMap<HttpHeader, HttpHeader>()
-		synchronized fun header(name: String): HttpHeader {
+		fun header(name: String): HttpHeader {
 			val header = HttpHeader(name = name)
 			if (!interns.containsKey(header)) {
 				interns += header to header

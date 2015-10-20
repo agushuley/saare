@@ -1,4 +1,3 @@
-import saare.server.HttpMethod
 import saare.http.Request
 import saare.http.Response
 import saare.http.TextResponse

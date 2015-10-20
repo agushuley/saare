@@ -1,8 +1,8 @@
 package saare_test.settings
 
-import saare.views.ViewsResolverConfiguration
-import saare.views.View
 import HelloView
+import saare.views.View
+import saare.views.ViewsResolverConfiguration
 
 /**
  * User: andriyg
@@ -11,7 +11,7 @@ import HelloView
  *
  *
  */
-public data open class Base  {
+public open class Base  {
 
 	public companion object : ViewsResolverConfiguration {
 		override val views: List<View>

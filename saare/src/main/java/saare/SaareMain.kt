@@ -6,18 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.boot.context.web.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import saare.views.View
-import java.util.*
-import javax.servlet.GenericServlet
 import javax.servlet.Servlet
-import javax.servlet.ServletRequest
-import javax.servlet.ServletResponse
-import javax.servlet.http.HttpServletRequest
-import kotlin.platform.platformStatic
 
 /**
  * Created by andriy on 14/07/15.
@@ -32,13 +21,13 @@ public open class SaareMain(public val saareConfiguration: Any) : SpringBootServ
 	}
 
 	override protected fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
-		return application.sources(javaClass<SaareMain>());
+		return application.sources(SaareMain::class.java);
 	}
 
 	val servlet = HttpServlet(saareConfiguration)
 
 	companion object {
-		@platformStatic
+		@JvmStatic
 		public fun main(args: Array<String>, mainClass: Class<SaareMain>) {
 			SpringApplication.run(arrayOf(mainClass), args);
 		}

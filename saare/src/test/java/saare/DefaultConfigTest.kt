@@ -1,13 +1,14 @@
 package saare
 
+import org.junit.Assert.assertNotSame
+import org.junit.Assert.assertSame
 import org.junit.Test
-import org.junit.Assert.*
 
 public class DefaultConfigTest {
 	interface TestConfigType {
 		companion object : DefaultConfig<TestConfigType>(
 				defaultValue = object : DefaultConfigTest.TestConfigType {},
-				type = javaClass<TestConfigType>()
+				type = TestConfigType::class.java
 		) {
 		}
 	}
